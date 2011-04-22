@@ -1,10 +1,10 @@
-(setq custom-basedir (expand-file-name "~/.emacs.d/"))
+(setq dotfiles-dir (expand-file-name "~/.emacs.d/"))
 
 (defun add-local-path (p)
-  (add-to-list 'load-path (concat custom-basedir p)))
+  (add-to-list 'load-path (concat dotfiles-dir p)))
 
 (defun load-local-file (p)
-  (load-file (concat custom-basedir p)))
+  (load-file (concat dotfiles-dir p)))
 
 (add-local-path "lib")
 

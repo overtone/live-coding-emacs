@@ -4,7 +4,7 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (ac-flyspell-workaround)
-(add-to-list 'ac-dictionary-directories (concat custom-basedir "lib/auto-complete/dict"))
+(add-to-list 'ac-dictionary-directories (concat dotfiles-dir "lib/auto-complete/dict"))
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu t)
 (setq ac-dwim t)
