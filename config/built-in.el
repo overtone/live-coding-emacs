@@ -22,6 +22,7 @@
       (winner-mode 1))
 
 (setq visible-bell t
+      column-number-mode t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
       inhibit-startup-message t
