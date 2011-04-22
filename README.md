@@ -8,7 +8,7 @@ This dot-emacs config has only been tested with a terminal hosted Emacs `23.2.1`
 
 ### Getting started
 
-1. Download the source and move and rename the `dot-emacs` folder to `~/.emacs.d`
+1. Download the source and move and rename the `live-coding-emacs` folder to `~/.emacs.d`
 2. Launch Emacs
 3. Live code your hat off!
 
