@@ -24,6 +24,7 @@
 
 (load-local-file "config/built-in.el")
 (load-local-file "config/paredit-conf.el")
+(load-local-file "config/lisps-conf.el")
 (load-local-file "config/cosmetic.el")
 (load-local-file "config/bindings.el")
 (load-local-file "config/highlight-flash-conf.el")
