@@ -22,6 +22,7 @@
 (add-local-path "lib/slime")
 (require 'slime)
 
+(load-local-file "config/built-in.el")
 (load-local-file "config/paredit-conf.el")
 (load-local-file "config/cosmetic.el")
 (load-local-file "config/bindings.el")
