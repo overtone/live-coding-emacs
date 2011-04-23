@@ -2,9 +2,10 @@
 (add-live-lib-path "color-theme")
 (require 'color-theme)
 
-;; use blackbored colour theme
-(load-file (concat dotfiles-lib-dir "blackbored.el"))
-(color-theme-blackbored)
+;; To use blackbored colour theme add the followign lines to your
+;; config:
+;;(load-file (concat dotfiles-lib-dir "blackbored.el"))
+;;(color-theme-blackbored)
 
 ;;highlight current line
 (global-hl-line-mode 1)
