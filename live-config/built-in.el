@@ -2,7 +2,11 @@
 (require 'ansi-color)
 (require 'recentf)
 
-(setq auto-save-list-file-prefix (concat dotfiles-tmp-dir "auto-save-list"))
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/tmp/
+(setq auto-save-file-name-transforms `((".*" ,(concat dotfiles-tmp-dir "autosaves/\\1") t)))
+(setq backup-directory-alist `((".*" . ,(concat dotfiles-tmp-dir "backups"))))
+(setq auto-save-list-file-name (concat dotfiles-tmp-dir "autosaves/autosave-list"))
+
 
 ;;When you visit a file, point goes to the last place where it was when you previously visited
 ;;Save file is set to dotfiles-tmp-dir/places
