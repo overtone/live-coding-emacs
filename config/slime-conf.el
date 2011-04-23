@@ -3,7 +3,7 @@
 (add-local-path "vendor/slime")
 (eval-after-load 'slime '(setq slime-protocol-version 'ignore))
 (require 'slime)
-(slime-setup)
+(slime-setup '(slime-scratch slime-editing-commands))
 
 
 
