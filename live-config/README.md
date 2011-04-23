@@ -5,6 +5,7 @@ Configuration of libs useful for live coding with a specific focus on Clojure an
 ### Prerequisites
 
 Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) and the following libraries in there:
+
 * `eval-sexp-fu.el`
 * `rainbow-parens.el`
 * `highlight.el`
@@ -15,6 +16,7 @@ Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) 
 * `smooth-scrolling.el`
 
 And the following lib dirs:
+
 * `align-cljlet`
 * `ac-slime`
 * `clojure-mode`

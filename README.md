@@ -26,6 +26,20 @@ This config includes an exciting cornucopia of Emacs goodies set up and ready to
 * Fancy highlighting of sexps on eval
 * REPL syntax highlighting
 
+### Personalising the Config
+
+Obviously, if you're an Emacs-whizz, you can take this config as a starting point and take it in your own direction, configuring as much as you wish. Fork away my friend!
+
+However, if you're still learning, you might want to try and keep your copy of these configs pretty close to the original so that you may benefit from future updates. This is easily achieved with a couple of easy steps:
+
+* Don't remove any of the libs
+* Don't modify the files in live-config
+
+If you do either of these, you're on your own :-)
+
+However, this won't preclude you from making your own modifications in a non-conflicting manner. You may add new libs and you can add your own config files. Place your libs in the lib dir, and your configs in the config dir. The config is there fore you to add your own personalisations, and it already contains a blank bindings file to place your own bindings. The files in the config dir will be loaded *after* the files in live-config, so you may override things to your own content. Start modifying and have at it!
+
+
 ### Feedback
 
 I'm very happy to hear any feedback regarding this config. The idea is for you to use it to get started and give you a platform to start editing it and turning it into something personal.
