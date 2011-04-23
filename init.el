@@ -26,14 +26,9 @@
 
 
 ;; Pull in live-coding config (see https://github.com/overtone/live-coding-emacs)
-(load-dotfile "config/live/live.el")
+(load-dotfile "live-config/live.el")
 
 
-;; Pull in rest of config stuff
+;; Pull in personalised config
 (load-dotfile "config/core.el")
-
-
-;; Pull in user specific config in personal.el if it exists
-(setq user-specific-config (concat dotfiles-dir "personal.el"))
-(if (file-exists-p user-specific-config) (load user-specific-config))
 
