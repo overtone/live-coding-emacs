@@ -1,3 +1,3 @@
-(add-local-path "lib/durendal")
+(add-live-lib-path "durendal")
 (require 'durendal)
 (durendal-enable)

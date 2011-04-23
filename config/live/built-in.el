@@ -2,7 +2,10 @@
 (require 'ansi-color)
 (require 'recentf)
 
+(setq auto-save-list-file-prefix (concat dotfiles-tmp-dir "auto-save-list"))
+
 ;;When you visit a file, point goes to the last place where it was when you previously visited
+;;Save file is set to dotfiles-tmp-dir/places
 (require 'saveplace)
 (setq-default save-place t)
 
@@ -12,9 +15,6 @@
 (require 'cua-rect)
 (cua-mode 1)
 (setq cua-enable-cua-keys nil)
-
-;;remove all trailing whitespace before saving the file
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;enable winner mode for C-c-(<left>|<right>) to navigate the history
 ;;of buffer changes i.e. undo a split screen
@@ -39,7 +39,7 @@
       whitespace-line-column 100
       ediff-window-setup-function 'ediff-setup-windows-plain
       xterm-mouse-mode t
-      save-place-file (concat dotfiles-dir "tmp/places"))
+      save-place-file (concat dotfiles-tmp-dir "places"))
 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -66,3 +66,6 @@
 (setq x-select-enable-clipboard t)
 
 (setq confirm-nonexistent-file-or-buffer nil)
+
+;;remove all trailing whitespace before saving the file
+(add-hook 'before-save-hook 'delete-trailing-whitespace)

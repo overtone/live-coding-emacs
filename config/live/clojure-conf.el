@@ -1,4 +1,4 @@
-(add-local-path "lib/clojure-mode")
+(add-live-lib-path "clojure-mode")
 (require 'clojure-mode)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook 'rainbow-paren-mode)
@@ -22,5 +22,6 @@
 
 
 ;;command to align let statements
-(add-local-path "lib/align-cljlet")
+;;To use: M-x align-cljlet
+(add-live-lib-path "align-cljlet")
 (require 'align-cljlet)

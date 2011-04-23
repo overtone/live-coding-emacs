@@ -1,37 +1,39 @@
-(setq dotfiles-dir (expand-file-name "~/.emacs.d/"))
+;; This is where everything starts
 
-(defun add-local-path (p)
+;; Create a variable to store the path to this dotfile directory
+;; (Usually ~/.emacs.d)
+(setq dotfiles-dir (file-name-directory
+                    (or (buffer-file-name) load-file-name)))
+
+;; Create variables to store the path to this dotfile dir's lib etc and tmp directories
+(setq dotfiles-lib-dir (concat dotfiles-dir "lib/"))
+(setq dotfiles-tmp-dir (concat dotfiles-dir "tmp/"))
+(setq dotfiles-etc-dir (concat dotfiles-dir "etc/"))
+
+;; Create helper fns for loading dotfile paths and files
+(defun add-dotfile-path (p)
   (add-to-list 'load-path (concat dotfiles-dir p)))
 
-(defun load-local-file (p)
-  (load-file (concat dotfiles-dir p)))
+(defun add-lib-path (p)
+  (add-to-list 'load-path (concat dotfiles-lib-dir p)))
 
-(add-local-path "lib")
+(defun load-dotfile (f)
+  (load-file (concat dotfiles-dir f)))
 
-(require 'dircolors)
-(require 'smooth-scrolling)
-(require 'rainbow-parens)
-(require 'rainbow-delimiters)
 
-;; The amazing undo tree
-(add-local-path "lib/undo-tree/")
-(require 'undo-tree)
-(global-undo-tree-mode)
+;; Ensure the lib directory is on the load path
+(add-dotfile-path "lib")
 
-;;slime lets you connect to a swank server
-(add-local-path "lib/slime")
-(require 'slime)
 
-(load-local-file "config/built-in.el")
-(load-local-file "config/paredit-conf.el")
-(load-local-file "config/lisps-conf.el")
-(load-local-file "config/cosmetic.el")
-(load-local-file "config/bindings.el")
-(load-local-file "config/highlight-flash-conf.el")
-(load-local-file "config/ido-conf.el")
-(load-local-file "config/clojure-conf.el")
-(load-local-file "config/slime-conf.el")
-(load-local-file "config/auto-complete-conf.el")
-(load-local-file "config/durendal-conf.el")
-(load-local-file "config/smex-conf.el")
-(load-local-file "config/yasnippet-conf.el")
+;; Pull in live-coding config (see https://github.com/overtone/live-coding-emacs)
+(load-dotfile "config/live/live.el")
+
+
+;; Pull in rest of config stuff
+(load-dotfile "config/core.el")
+
+
+;; Pull in user specific config in personal.el if it exists
+(setq user-specific-config (concat dotfiles-dir "personal.el"))
+(if (file-exists-p user-specific-config) (load user-specific-config))
+

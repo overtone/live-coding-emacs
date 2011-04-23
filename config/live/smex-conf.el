@@ -1,4 +1,4 @@
-(add-local-path "lib/smex")
+(add-live-lib-path "smex")
 (require 'smex)
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)

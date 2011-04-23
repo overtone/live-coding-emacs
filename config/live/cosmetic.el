@@ -1,9 +1,9 @@
 ;;Color-theme
-(add-local-path "lib/color-theme")
+(add-live-lib-path "color-theme")
 (require 'color-theme)
 
 ;; use blackbored colour theme
-(load-local-file "lib/blackbored.el")
+(load-file (concat dotfiles-lib-dir "blackbored.el"))
 (color-theme-blackbored)
 
 ;;highlight current line
