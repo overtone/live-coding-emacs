@@ -1,6 +1,6 @@
-## Live Coding Emacs setup for Overtone
 <img src="https://github.com/downloads/overtone/live-coding-emacs/improcess-logo-2.png" alt="Fuzzy Improcess Logo" title="Improcess" align="right" />
 
+## Live Coding Emacs setup for Overtone
 An opinionated set of defaults for getting started with Emacs for use as a live coding tool for Overtone. These have been extracted from Sam Aaron's personal dot-emacs which is even more opinionated and probably not entirely fit for general consumption. This version pulls out the most useful elements in a format that's simple to install and get you live coding quickly.
 
 ### Prerequisites
@@ -40,6 +40,17 @@ If you do either of these, you're on your own :-)
 
 However, this won't preclude you from making your own modifications in a non-conflicting manner. You may add new libs and you can add your own config files. Place your libs in the lib dir, and your configs in the config dir. The config is there for you to add your own personalisations, and it already contains a blank bindings file to place your own bindings. The files in the config dir will be loaded *after* the files in live-config, so you may override things to your own content. Start modifying and have at it!
 
+### Screenshots
+
+<img src="https://github.com/downloads/overtone/live-coding-emacs/live-coding-config-in-use.png" alt="Screenshot 1" title="Live Coding Config Screenshot 1" />
+
+<img src="https://github.com/downloads/overtone/live-coding-emacs/live-coding-config-in-use-2.png" alt="Screenshot 2" title="Live Coding Config Screenshot 2" />
+
+### Video
+
+Here's a video showing the config in use: http://vimeo.com/22798433
+
+<iframe src="http://player.vimeo.com/video/22798433?title=0&amp;byline=0&amp;portrait=0" width="400" height="265" frameborder="0"></iframe><p><a href="http://vimeo.com/22798433">Quick Intro to Live Programming with Overtone</a> from <a href="http://vimeo.com/user568137">næu</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
 ### Feedback
 
