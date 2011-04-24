@@ -1,4 +1,5 @@
 ## Live Coding Emacs setup for Overtone
+<img src="https://github.com/downloads/overtone/live-coding-emacs/improcess-logo-2.png" alt="Fuzzy Improcess Logo" title="Improcess" align="right" />
 
 An opinionated set of defaults for getting started with Emacs for use as a live coding tool for Overtone. These have been extracted from Sam Aaron's personal dot-emacs which is even more opinionated and probably not entirely fit for general consumption. This version pulls out the most useful elements in a format that's simple to install and get you live coding quickly.
 
