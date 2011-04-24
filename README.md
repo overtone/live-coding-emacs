@@ -48,9 +48,7 @@ However, this won't preclude you from making your own modifications in a non-con
 
 ### Video
 
-Here's a video showing the config in use: http://vimeo.com/22798433
-
-<iframe src="http://player.vimeo.com/video/22798433?title=0&amp;byline=0&amp;portrait=0" width="400" height="265" frameborder="0"></iframe><p><a href="http://vimeo.com/22798433">Quick Intro to Live Programming with Overtone</a> from <a href="http://vimeo.com/user568137">næu</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+Here's a video showing the config in use: [Quick Intro to Live Programming with Overtone](http://vimeo.com/22798433)
 
 ### Feedback
 
