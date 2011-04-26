@@ -9,7 +9,6 @@
 
 ;;highlight current line
 (global-hl-line-mode 1)
-(set-face-background 'hl-line "#333333")
 
 ;;set cursor colour
 (set-cursor-color "yellow")
