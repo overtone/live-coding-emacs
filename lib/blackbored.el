@@ -29,6 +29,7 @@
       (foreground-color . "#EDEDED")
       (mouse-color . "sienna1"))
 
+     (hl-line ((t (:background "#333333"))))
      (default ((t (:background "black" :foreground "#A9A9A9"))))
      (blue ((t (:foreground "blue"))))
      (bold ((t (:bold t))))
