@@ -24,6 +24,7 @@
 (require 'smooth-scrolling)
 (require 'rainbow-parens)
 (require 'rainbow-delimiters)
+(require 'mwe-log-commands)
 
 (load-live-config-file "built-in.el")
 (load-live-config-file "paredit-conf.el")
