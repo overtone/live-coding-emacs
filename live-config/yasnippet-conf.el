@@ -6,4 +6,3 @@
 
 ;; Load the snippets
 (yas/load-directory yas/root-directory)
-

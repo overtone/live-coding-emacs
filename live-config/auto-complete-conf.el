@@ -5,6 +5,10 @@
 (ac-config-default)
 (ac-flyspell-workaround)
 (add-to-list 'ac-dictionary-directories (concat dotfiles-lib-dir "auto-complete/dict"))
+
+
+(setq ac-comphist-file (concat dotfiles-tmp-dir "ac-comphist.dat"))
+
 (global-auto-complete-mode t)
 (setq ac-auto-show-menu t)
 (setq ac-dwim t)
