@@ -275,7 +275,30 @@ Terrible hack workaround for the fact that elisp lacks fscking closures.")
             (lambda ()
               (if (equal (slime-lisp-implementation-name) "clojure")
                   (progn
+                    (eval-after-load 'clojure-mode
+                      '(font-lock-add-keywords
+                        'slime-repl-mode `(("(\\(fn\\)[\[[:space:]]"
+                                         (0 (progn (compose-region (match-beginning 1)
+                                                                   (match-end 1) "λ")
+                                                   nil))))))
+
+                    (eval-after-load 'clojure-mode
+                      '(font-lock-add-keywords
+                        'slime-repl-mode `(("\\(#\\)("
+                                         (0 (progn (compose-region (match-beginning 1)
+                                                                   (match-end 1) "ƒ")
+                                                   nil))))))
+
+                    (eval-after-load 'clojure-mode
+                      '(font-lock-add-keywords
+                        'slime-repl-mode `(("\\(#\\){"
+                                         (0 (progn (compose-region (match-beginning 1)
+                                                                   (match-end 1) "∈")
+                                                   nil))))))
+
                     (add-hook 'slime-repl-mode-hook 'durendal-slime-repl-paredit)
+                    (add-hook 'slime-repl-mode-hook 'rainbow-delimiters-mode)
+                    (add-hook 'slime-repl-mode-hook 'rainbow-paren-mode)
                     (add-hook 'sldb-mode-hook 'durendal-dim-sldb-font-lock)
                     (durendal-enable-slime-repl-font-lock))
                 (progn
