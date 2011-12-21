@@ -28,7 +28,8 @@
 (when (fboundp 'winner-mode)
       (winner-mode 1))
 
-(setq visible-bell t
+(setq redisplay-dont-pause t
+      visible-bell t
       column-number-mode t
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
@@ -72,5 +73,4 @@
 (setq confirm-nonexistent-file-or-buffer nil)
 
 ;;remove all trailing whitespace and trailing blank lines before saving the file
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'before-save-hook 'delete-trailing-blank-lines)
+(add-hook 'before-save-hook 'whitespace-cleanup)

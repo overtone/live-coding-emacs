@@ -15,9 +15,12 @@ commands. And to all the other commands, too.
    * Or manually download Smex and set-up your load path. [(Find out more.)](http://www.emacswiki.org/emacs/InstallingPackages)
 
 * To auto-start Smex every time you open Emacs add these lines to your .emacs file:
+
         (require 'smex)
         (smex-initialize)
-   Bind some keys:
+        
+* Bind some keys:
+   
         (global-set-key (kbd "M-x") 'smex)
         (global-set-key (kbd "M-X") 'smex-major-mode-commands)
         ;; This is your old M-x.
@@ -74,6 +77,9 @@ Smex keeps track of.
 
 ### Prompt
 Set `smex-prompt-string` for a custom prompt.
+
+### Ignore menu bar bindings
+Enable `smex-key-advice-ignore-menu-bar` to ignore clues to menu bar bindings.
 
 ## Appendix
 

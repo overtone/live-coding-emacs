@@ -26,6 +26,7 @@
 (require 'rainbow-delimiters)
 (require 'mwe-log-commands)
 
+(load-live-config-file "key-chord-conf.el")
 (load-live-config-file "util-fns.el")
 (load-live-config-file "built-in.el")
 (load-live-config-file "paredit-conf.el")
@@ -40,18 +41,3 @@
 (load-live-config-file "smex-conf.el")
 (load-live-config-file "yasnippet-conf.el")
 (load-live-config-file "undo-tree-conf.el")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,20 +4,21 @@
 ;;
 ;; Author: Phil Hagelberg
 ;; URL: http://github.com/technomancy/durendal
-;; Version: 0.1
+;; Version: 0.2
 ;; Keywords: lisp clojure slime
 ;; Created: 2010-08-13
-;; Package-Requires: ((clojure-mode "1.7") (slime "20100404"))
+;; Package-Requires: ((clojure-mode "1.7") (slime "20100404") (paredit "22"))
 
 ;; This file is not part of GNU Emacs.
 
 ;;; Commentary:
 
-;; "Count Roland smites upon the marble stone;
-;; I cannot tell you how he hewed it and smote;
-;; Yet the blade breaks not nor splinters, though it groans;
-;; Upward to heaven it rebounds from the blow."
-;; --From The Song of Roland
+;;   "Count Roland smites upon the marble stone;
+;;   I cannot tell you how he hewed it and smote;
+;;   Yet the blade breaks not nor splinters, though it groans;
+;;   Upward to heaven it rebounds from the blow."
+;;
+;; –From The Song of Roland
 ;; (Translated by Dorothy Sayers, Viking Penguin, NY, NY, 1957)
 
 ;; Durendal is a bucket of tricks for Clojure that are too
@@ -26,8 +27,7 @@
 
 ;;; Features:
 
-;; * durendal-sort-ns: Sorts the :use, :require, :import, and
-;;                     :refer sections of your ns call.
+;; * durendal-hide-successful-compile: Hide compilation buffer upon success.
 ;; * durendal-jack-in: Initiate a lein-swank + slime-connect.
 ;; * durendal-enable-auto-compile: Compile on save.
 ;; * durendal-slime-repl-paredit: Turn on paredit in the slime repl.
@@ -36,18 +36,18 @@
 ;;                     for prompts and printouts); turn off with
 ;;                     durendal-disable-slime-repl-font-lock.
 
-;; Call durendal-enable to turn on all Durendal features.
+;; Call durendal-enable to turn on all Durendal features. To enable
+;; features one at a time, simply use the corresponding add-hook call:
+
+;; (add-hook 'clojure-mode-hook 'durendal-enable-auto-compile)
+;; (add-hook 'slime-repl-mode-hook 'durendal-slime-repl-paredit)
+;; (add-hook 'sldb-mode-hook 'durendal-dim-sldb-font-lock)
+;; (add-hook 'slime-compilation-finished-hook 'durendal-hide-successful-compile)
 
 ;;; TODO:
 
 ;; * ns-unmap binding
-;; * ns-cleanup?
-;; * when class-not-found, search classpath
 ;; * bury *SLIME Compilation* buffer on successful compile
-;; * reload-all
-;; * fix sort-ns to support wrapped lines
-;; * search for vars that are referenced but not refered; offer to insert refer
-;; * remove unused refers
 ;; * package and require paredit 22
 
 ;;; License:
@@ -73,106 +73,30 @@
 (require 'slime-repl)
 (require 'clojure-mode)
 
-(defvar durendal-port 4005
-  "The port of the currently-launching swank server.
-Terrible hack workaround for the fact that elisp lacks fscking closures.")
-
 (defvar durendal-auto-compile? t
   "Automatically compile on save when applicable.")
-
-;; ns stuff
-
-(defmacro durendal-with-section (section &rest body)
-  `(save-excursion
-     (goto-char (point-min))
-     (while (search-forward (concat ,section " ") nil t)
-       (back-to-indentation)
-       (mark-sexp)
-       (save-restriction
-         (narrow-to-region (point) (mark))
-         ,@body
-         (goto-char (point-max))))))
-
-(defmacro durendal-within-sexp (&rest body)
-  `(save-excursion
-     (mark-sexp)
-     (save-restriction
-       (narrow-to-region (+ (point) 1) (- (mark) 1))
-       ,@body)))
-
-(defun durendal-sort-words (start end)
-  (let ((sorted (sort (split-string (buffer-substring-no-properties start end)) 'string<)))
-    (delete-region start end)
-    (insert (mapconcat 'identity sorted " "))))
-
-(defun durendal-sort-subsection (subsection)
-  (goto-char (point-min))
-  (when (search-forward (concat subsection " ") nil t)
-    (durendal-within-sexp
-     (durendal-sort-words (point-min) (point-max)))))
-
-(defun durendal-sort-libspec ()
-  (durendal-within-sexp
-   (when (and (search-forward-regexp "\\s " nil t)
-              (not (= (char-after) (string-to-char ":"))))
-     (durendal-sort-words (point) (point-max)))))
-
-(defun durendal-sort-libspecs ()
-  (while (search-forward-regexp "[(\\[]\\S +\\." nil t)
-    (search-backward-regexp "[(\\[]" nil t)
-    (durendal-sort-libspec)
-    (forward-sexp)))
-
-(defun durendal-sort-section (section)
-  (durendal-with-section
-   section
-   (mapc 'durendal-sort-subsection '(":only" ":exclude"))
-   (goto-char (point-min))
-   (search-forward-regexp "(\\S +\\S+ ")
-   (durendal-sort-libspecs)
-   (goto-char (point-min))
-   ;;(forward-word) -- refer-clojure
-   ;;(forward-symbol) -- bizarre-error
-   (search-forward-regexp "(\\S +\\S+ ")
-   (insert "\n")
-   (indent-region (point-min) (point-max))
-   ;; TODO: handle wrapped lines
-   (sort-lines nil (point) (- (point-max) 1))
-   (goto-char (point-min))
-   (setq h (buffer-substring (point) (point-max)))
-   (join-line t)))
-
-;;;###autoload
-(defun durendal-sort-ns ()
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (when (search-forward "(ns ")
-      (back-to-indentation)
-      (durendal-within-sexp
-       (mapc 'durendal-sort-section '(":use" ":require" ":import" ":refer" ":refer-clojure")))
-      (mark-defun)
-      (indent-region (point) (mark)))))
 
 ;; launcher
 
 ;;;###autoload
 (defun durendal-jack-in (&optional port-prompt)
   (interactive "P")
-  (let ((root (locate-dominating-file default-directory "project.clj")))
-    (setq durendal-port (if port-prompt
-                            (string-to-number (read-string "Port: "
-                                                           nil nil slime-port))
-                          slime-port))
-    (message "Launching lein swank on %s..." durendal-port)
+  (lexical-let ((root (locate-dominating-file default-directory "project.clj"))
+                (port (if port-prompt
+                          (string-to-number (read-string "Port: " nil nil slime-port))
+                        (+ 1024 (* (random 64512))))))
+    (message "Launching lein swank on %s..." port)
     (when (not root)
       (error "Not in a Leiningen project."))
-    (shell-command (format "cd %s && lein swank %s &" root durendal-port)
+    (shell-command (format "cd %s && lein swank %s &" root port)
                    "*lein-swank*")
+    (message "Launching lein swank on %s..." port)
     (set-process-filter (get-buffer-process "*lein-swank*")
                         (lambda (process output)
                           (when (string-match "Connection opened on" output)
-                            (slime-connect "localhost" durendal-port)
+                            (slime-connect "localhost" port)
+                            (with-current-buffer (slime-output-buffer t)
+                              (setq default-directory root))
                             (set-process-filter process nil))))
     (message "Starting swank server...")))
 
@@ -214,6 +138,15 @@ Terrible hack workaround for the fact that elisp lacks fscking closures.")
 (defun durendal-enable-auto-compile ()
   (make-local-variable 'after-save-hook)
   (add-hook 'after-save-hook 'durendal-auto-compile))
+
+;; compile-buffer suppression
+
+;;;###autoload
+(defun durendal-hide-successful-compile (msg)
+  (with-struct (slime-compilation-result. notes duration successp)
+      slime-last-compilation-result
+    (when successp
+      (kill-buffer "*SLIME Compilation*"))))
 
 ;; repl
 
@@ -301,9 +234,13 @@ Terrible hack workaround for the fact that elisp lacks fscking closures.")
                     (add-hook 'slime-repl-mode-hook 'rainbow-paren-mode)
                     (add-hook 'sldb-mode-hook 'durendal-dim-sldb-font-lock)
                     (durendal-enable-slime-repl-font-lock))
-                (progn
-                  (remove-hook 'slime-repl-mode-hook 'durendal-slime-repl-paredit)
-                  (remove-hook 'sldb-mode-hook 'durendal-dim-sldb-font-lock)
-                  (durendal-disable-slime-repl-font-lock))))))
 
-(provide 'durendal) ;;; durendal.el ends here
+
+                  (progn
+;;                    (remove-hook 'clojure-mode-hook 'durendal-enable-auto-compile)
+                    (remove-hook 'slime-repl-mode-hook 'durendal-slime-repl-paredit)
+                    (remove-hook 'sldb-mode-hook 'durendal-dim-sldb-font-lock)
+                    (durendal-disable-slime-repl-font-lock))))))
+
+(provide 'durendal)
+;;; durendal.el ends here
