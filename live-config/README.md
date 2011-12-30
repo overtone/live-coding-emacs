@@ -7,12 +7,11 @@ Configuration of libs useful for live coding with a specific focus on Clojure an
 Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) and the following libraries in there:
 
 * `eval-sexp-fu.el`
-* `rainbow-parens.el`
+* `rainbow-delimiters.el`
 * `highlight.el`
 * `dircolors.el`
 * `paredit.el`
 * `blackbored.el`
-* `rainbow-delimiters.el`
 * `smooth-scrolling.el`
 
 And the following lib dirs:

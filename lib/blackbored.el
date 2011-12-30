@@ -117,6 +117,17 @@
      (grep-hit-face ((t (:foreground "black" :background "red"))))
      (grep-context-face ((t (:foreground "black" :background "deep pink"))))
 
+     (rainbow-delimiters-depth-1-face ((t (:foreground "dark red"))))
+     (rainbow-delimiters-depth-2-face ((t (:foreground "dark green"))))
+     (rainbow-delimiters-depth-3-face ((t (:foreground "deep pink"))))
+     (rainbow-delimiters-depth-4-face ((t (:foreground "yellow"))))
+     (rainbow-delimiters-depth-5-face ((t (:foreground "green"))))
+     (rainbow-delimiters-depth-6-face ((t (:foreground "light blue"))))
+     (rainbow-delimiters-depth-7-face ((t (:foreground "orange"))))
+     (rainbow-delimiters-depth-8-face ((t (:foreground "slate blue"))))
+     (rainbow-delimiters-depth-9-face ((t (:foreground "light gray"))))
+     (rainbow-delimiters-unmatched-face ((t (:foreground "white"))))
+
      (erc-notice-face ((t (:bold t :foreground "grey26"))))
 
      (erc-action-face ((t (:foreground "#FF6400"))))

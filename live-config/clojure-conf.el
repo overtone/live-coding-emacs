@@ -1,7 +1,9 @@
 (add-live-lib-path "clojure-mode")
 (require 'clojure-mode)
+
+;; rainbow-delimiters: byte-compilation required for speed.
+(byte-compile-file (concat dotfiles-dir "lib/rainbow-delimiters.el"))
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook 'rainbow-paren-mode)
 
 (eval-after-load 'clojure-mode
   '(font-lock-add-keywords
