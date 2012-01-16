@@ -14,6 +14,11 @@
 ;;set cursor colour
 (set-cursor-color "yellow")
 
+;; momentarily highlight changes made by commands such as undo, yank-pop, etc.
+;; http://www.emacswiki.org/emacs/VolatileHighlights
+(require 'volatile-highlights)
+(volatile-highlights-mode t)
+
 ;;make sure ansi colour character escapes are honoured
 (ansi-color-for-comint-mode-on)
 
