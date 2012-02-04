@@ -55,7 +55,7 @@
 
      (gui-element ((t (:background "#333333" :foreground "#96CBFE"))))
 ;;     (region ((t (:foreground "black" :background "#7F073F"))))
- (region ((t ( :background "#7F073F"))))
+     (region ((t ( :background "#7F073F"))))
      (mode-line ((t (:background "gray10" :foreground "#4c83ff"))))
      (mode-line-inactive ((t (:background "gray10" :foreground "gray30"))))
 
@@ -117,6 +117,19 @@
      (grep-hit-face ((t (:foreground "black" :background "red"))))
      (grep-context-face ((t (:foreground "black" :background "deep pink"))))
 
+     ;; ;;rainbow-delimiters [ {
+     ;; (rainbow-delimiters-depth-1-face ((t (:foreground "dark gray"))))
+     ;; (rainbow-delimiters-depth-2-face ((t (:foreground "green"))))
+     ;; (rainbow-delimiters-depth-3-face ((t (:foreground "gold"))))
+     ;; (rainbow-delimiters-depth-4-face ((t (:foreground "turquoise"))))
+     ;; (rainbow-delimiters-depth-5-face ((t (:foreground "orange"))))
+     ;; (rainbow-delimiters-depth-6-face ((t (:foreground "slate blue"))))
+     ;; (rainbow-delimiters-depth-7-face ((t (:foreground "yellow"))))
+     ;; (rainbow-delimiters-depth-8-face ((t (:foreground "light blue"))))
+     ;; (rainbow-delimiters-depth-9-face ((t (:foreground "#7f7f7f"))))
+     ;; (rainbow-delimiters-unmatched-face ((t (:foreground "white"))))
+
+     ;;rainbow-delimiters (
      (rainbow-delimiters-depth-1-face ((t (:foreground "dark red"))))
      (rainbow-delimiters-depth-2-face ((t (:foreground "dark green"))))
      (rainbow-delimiters-depth-3-face ((t (:foreground "deep pink"))))
@@ -153,7 +166,7 @@
      (erc-timestamp-face ((t (:foreground "dim gray"))))
      (erc-underline-face ((t (:underline t))))
 
-
+     (vhl/default-face ((t (:background "#333333"))))
      (undo-tree-visualizer-active-branch-face ((t (:foreground "deep pink" :background "black")))))))
 
 

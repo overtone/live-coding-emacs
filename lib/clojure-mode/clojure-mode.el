@@ -765,6 +765,7 @@ use (put-clojure-indent 'some-symbol 'defun)."
 
   (try 0)
   (catch 2)
+  (finally 0)
 
   ;; binding forms
   (let 1)
@@ -883,8 +884,7 @@ returned."
              (insert string)
              (let ((left-margin 2))
                (delete-trailing-whitespace)
-               (mark-whole-buffer)
-               (fill-paragraph nil t)
+               (fill-region (point-min) (point-max))
                (buffer-substring-no-properties (+ 2 (point-min)) (point-max))))))))
     (goto-char old-point)))
 
@@ -980,11 +980,8 @@ returned."
   (setq slime-net-coding-system 'utf-8-unix)
   (lexical-let ((port (- 65535 (mod (caddr (current-time)) 4096)))
                 (dir default-directory))
-
-
     (when (and (functionp 'slime-disconnect) (slime-current-connection))
       (slime-disconnect))
-
     (when (get-buffer "*swank*")
       (kill-buffer "*swank*"))
     (let* ((swank-cmd (format clojure-swank-command port))
@@ -1051,11 +1048,12 @@ returned."
 ;;;###autoload
 (add-hook 'slime-connected-hook 'clojure-enable-slime-on-existing-buffers)
 
+(add-hook 'slime-indentation-update-hooks 'put-clojure-indent)
+
 
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-
 (add-to-list 'interpreter-mode-alist '("jark" . clojure-mode))
 (add-to-list 'interpreter-mode-alist '("cake" . clojure-mode))
 

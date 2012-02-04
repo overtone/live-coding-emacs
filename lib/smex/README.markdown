@@ -11,7 +11,7 @@ commands. And to all the other commands, too.
 ## Get started
 
 * Get Smex
-   * Via [ELPA](http://tromey.com/elpa/).
+   * Via [package.el](http://marmalade-repo.org/packages/smex).
    * Or manually download Smex and set-up your load path. [(Find out more.)](http://www.emacswiki.org/emacs/InstallingPackages)
 
 * To auto-start Smex every time you open Emacs add these lines to your .emacs file:
@@ -35,7 +35,7 @@ order.
 
 Ido completion in 10 seconds: Typing selects matching commands:
 e.g. 'lnmd' matches 'line-number-mode'. `C-s`/`C-r` switches to the
-next/previous match. Enter executes the selected command.
+next/previous match. `Enter` executes the selected command.
 
 ## Learn more
 

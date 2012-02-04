@@ -31,7 +31,7 @@
 (setq redisplay-dont-pause t
       visible-bell t
       column-number-mode t
-      echo-keystrokes 0.1
+      echo-keystrokes 0.02
       font-lock-maximum-decoration t
       inhibit-startup-message t
       transient-mark-mode t
@@ -44,7 +44,8 @@
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       xterm-mouse-mode t
-      save-place-file (concat dotfiles-tmp-dir "places"))
+      save-place-file (concat dotfiles-tmp-dir "places")
+      fill-column 80)
 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)

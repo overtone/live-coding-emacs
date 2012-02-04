@@ -1,8 +1,6 @@
 (add-live-lib-path "clojure-mode")
-(require 'clojure-mode)
 
-;; rainbow-delimiters: byte-compilation required for speed.
-(byte-compile-file (concat dotfiles-dir "lib/rainbow-delimiters.el"))
+(add-hook 'clojure-mode-hook 'enable-paredit-mode)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 
 (eval-after-load 'clojure-mode
@@ -29,8 +27,11 @@
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
 
-
+(require 'clojure-mode)
 ;;command to align let statements
 ;;To use: M-x align-cljlet
 (add-live-lib-path "align-cljlet")
 (require 'align-cljlet)
+
+;;teach emacs to treat hyphen-separated-words as one
+(modify-syntax-entry ?- "w" clojure-mode-syntax-table)

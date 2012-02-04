@@ -1,10 +1,10 @@
 ;;; undo-tree.el --- Treat undo history as a tree
 
 
-;; Copyright (C) 2009-2011 Toby Cubitt
+;; Copyright (C) 2009-2012 Toby Cubitt
 
 ;; Author: Toby Cubitt <toby-undo-tree@dr-qubit.org>
-;; Version: 0.3.2
+;; Version: 0.3.3
 ;; Keywords: convenience, files, undo, redo, history, tree
 ;; URL: http://www.dr-qubit.org/emacs.php
 ;; Git Repository: http://www.dr-qubit.org/git/undo-tree.git
@@ -605,6 +605,9 @@
 
 ;;; Change Log:
 ;;
+;; Version 0.3.3;
+;; * added `term-mode' to `undo-tree-incompatible-major-modes'
+;;
 ;; Version 0.3.2
 ;; * added additional check in `undo-list-GCd-marker-elt-p' to guard against
 ;;   undo elements being mis-identified as marker elements.
@@ -738,7 +741,7 @@ when `undo-tree-mode' is enabled."
   :group 'undo-tree
   :type 'string)
 
-(defcustom undo-tree-incompatible-major-modes nil
+(defcustom undo-tree-incompatible-major-modes '(term-mode)
   "List of major-modes in which `undo-tree-mode' should not be enabled.
 \(See `turn-on-undo-tree-mode'.\)"
   :group 'undo-tree
