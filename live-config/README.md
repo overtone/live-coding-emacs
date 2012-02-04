@@ -6,25 +6,28 @@ Configuration of libs useful for live coding with a specific focus on Clojure an
 
 Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) and the following libraries in there:
 
-* `eval-sexp-fu.el`
-* `rainbow-delimiters.el`
-* `highlight.el`
-* `dircolors.el`
-* `paredit.el`
+* `ace-jump-mode.el`
 * `blackbored.el`
+* `dircolors.el`
+* `eval-sexp-fu.el`
+* `highlight.el`
+* `key-chord.el`
+* `mwe-log-commands.el`
+* `paredit.el`
+* `rainbow-delimiters.el`
 * `smooth-scrolling.el`
 
 And the following lib dirs:
 
-* `align-cljlet`
 * `ac-slime`
+* `align-cljlet`
+* `auto-complete`
 * `clojure-mode`
 * `color-theme`
-* `auto-complete`
-* `undo-tree`
-* `durendal` (note that this is a personalised version available at: https://github.com/samaaron/durendal)
-* `smex`
 * `slime`
+* `smex`
+* `undo-tree`
+* `volatile-highlights`
 * `yasnippet`
 
 These may all be found in the lib dir here: https://github.com/overtone/live-coding-emacs
