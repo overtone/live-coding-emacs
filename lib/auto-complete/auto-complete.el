@@ -1,6 +1,6 @@
 ;;; auto-complete.el --- Auto Completion for GNU Emacs
 
-;; Copyright (C) 2008, 2009, 2010  Tomohiro Matsuyama
+;; Copyright (C) 2008, 2009, 2010, 2011, 2012  Tomohiro Matsuyama
 
 ;; Author: Tomohiro Matsuyama <m2ym.pub@gmail.com>
 ;; URL: http://cx4a.org/software/auto-complete
@@ -597,7 +597,7 @@ If there is no common part, this will be nil.")
         (ignore-errors
           (with-temp-buffer
             (insert-file-contents filename)
-            (setq result (split-string (buffer-string) "\n"))))
+            (setq result (split-string (buffer-string) "\n" t))))
         (puthash filename result ac-file-dictionary)
         result))))
 

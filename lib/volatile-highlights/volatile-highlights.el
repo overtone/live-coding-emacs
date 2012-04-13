@@ -6,10 +6,11 @@
 ;; Created: 03 October 2001. (as utility functions in my `.emacs' file.)
 ;;          14 March   2010. (re-written as library `volatile-highlights.el')
 ;; Keywords: emulations convenience wp
-;; Revision: $Id$
+;; Revision: $Id: bcd29d2f9e70d19b888a654bb8086d26e250faa4 $
 ;; URL: http://www.emacswiki.org/emacs/download/volatile-highlights.el
 ;; GitHub: http://github.com/k-talo/volatile-highlights.el
-;; Version: 1.6
+;; Version: 1.8
+;; Contributed by: Ryan Thompson.
 
 ;; This file is not part of GNU Emacs.
 
@@ -97,7 +98,14 @@
 
 ;;; Change Log:
 
-;; v1.6 Thu Feb  2 06:59:48 2012 JST
+;; v1.8  Wed Feb 15 00:08:14 2012 JST
+;;   - Added "Contributed by: " line in header.
+;;   - Added extension for hideshow.
+;;
+;; v1.7  Mon Feb 13 23:31:18 2012 JST
+;;   - Fixed a bug required features are not loaded.
+;;
+;; v1.6  Thu Feb  2 06:59:48 2012 JST
 ;;   - Removed extensions for non standard features.
 ;;   - Suppress compiler warning "function `vhl/.make-list-string'
 ;;     defined multiple times".
@@ -132,7 +140,7 @@
 
 ;;; Code:
 
-(defconst vhl/version "1.6")
+(defconst vhl/version "1.8")
 
 (eval-when-compile
   (require 'cl)
@@ -462,7 +470,7 @@ Optional args are the same as `vhl/add-range'."
 
 (defun vhl/require-noerror (feature &optional filename)
   (condition-case c
-      (require 'linear-undo)
+      (require feature)
     (file-error nil)))
 
 (eval-and-compile
@@ -760,5 +768,45 @@ extensions."
     (vhl/ext/nonincremental-search/.disable-advice-to-vhl nonincremental-repeat-search-backward)))
 
 (vhl/install-extension 'nonincremental-search)
+
+
+;;-----------------------------------------------------------------------------
+;; Extension for hideshow.
+;;   -- Put volatile highlights on the text blocks which are shown/hidden
+;;      by hideshow.
+;;-----------------------------------------------------------------------------
+
+(defun vhl/ext/hideshow/.activate ()
+  (defadvice hs-show-block (around vhl/ext/hideshow/vhl/around-hook (&optional end))
+    (let* ((bol (save-excursion (progn (beginning-of-line) (point))))
+           (eol (save-excursion (progn (end-of-line) (point))))
+           (ov-folded (dolist (ov (overlays-in bol (1+ eol)))
+                        (when (overlay-get ov 'hs)
+                          (return ov))))
+           (boov (and ov-folded (overlay-start ov-folded)))
+           (eoov (and ov-folded (overlay-end ov-folded))))
+    
+      ad-do-it
+    
+      (when (and boov eoov)
+        (vhl/add-range boov eoov))))
+  (ad-activate 'hs-show-block))
+
+(defun vhl/ext/hideshow/on ()
+  "Turn on volatile highlighting for `hideshow'."
+  (interactive)
+  
+  (cond
+   ((featurep 'hideshow)
+    (vhl/ext/hideshow/.activate))
+   (t
+    (eval-after-load "hideshow" '(vhl/ext/hideshow/.activate)))))
+
+(defun vhl/ext/hideshow/off ()
+  (vhl/disable-advice-if-defined 'hs-show-block
+                                 'after
+                                 'vhl/ext/hideshow/vhl/around-hook))
+
+(vhl/install-extension 'hideshow)
 
 ;;; volatile-highlights.el ends here

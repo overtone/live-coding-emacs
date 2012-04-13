@@ -7,9 +7,14 @@
 (make-directory (concat dotfiles-tmp-dir "backups") t)
 
 ;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/tmp/
+(setq backup-by-copying t)
 (setq auto-save-file-name-transforms `((".*" ,(concat dotfiles-tmp-dir "autosaves/\\1") t)))
 (setq backup-directory-alist `((".*" . ,(concat dotfiles-tmp-dir "backups"))))
 (setq auto-save-list-file-name (concat dotfiles-tmp-dir "autosaves/autosave-list"))
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
 
 ;;When you visit a file, point goes to the last place where it was when you previously visited
 ;;Save file is set to dotfiles-tmp-dir/places
@@ -44,8 +49,7 @@
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       xterm-mouse-mode t
-      save-place-file (concat dotfiles-tmp-dir "places")
-      fill-column 80)
+      save-place-file (concat dotfiles-tmp-dir "places"))
 
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
