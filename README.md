@@ -5,7 +5,7 @@ An opinionated set of defaults for getting started with Emacs for use as a live 
 
 ### Prerequisites
 
-This dot-emacs config has only been tested with a terminal hosted Emacs `23.2.1`. Issues and pull-requests for this and later versions will be happily accepted.
+This dot-emacs config has only been tested with a terminal hosted Emacs ` 24.1.50.1` (pre-release). Issues and pull-requests for this and later versions will be happily accepted.
 
 ### Getting started
 
