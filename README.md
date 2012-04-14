@@ -25,7 +25,8 @@ This config includes an exciting cornucopia of Emacs goodies set up and ready to
 * The amazing undo-tree (live-code with confidence!)
 * Textmate-like snippets
 * Fancy highlighting of sexps on eval
-* REPL syntax highlighting
+* Refheap mode for pasting snippets to refheap.com
+* Smex - for a much nicer fuzzy-matching M-x experience.
 
 ### Personalising the Config
 
