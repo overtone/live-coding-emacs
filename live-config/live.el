@@ -46,3 +46,4 @@
 (load-live-config-file "refheap-conf.el")
 (load-live-config-file "javascript-conf.el")
 (load-live-config-file "tramp-conf.el")
+(load-live-config-file "mouse-conf.el")
