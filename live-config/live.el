@@ -45,3 +45,4 @@
 (load-live-config-file "undo-tree-conf.el")
 (load-live-config-file "refheap-conf.el")
 (load-live-config-file "javascript-conf.el")
+(load-live-config-file "tramp-conf.el")
