@@ -1,11 +1,11 @@
 <img src="https://github.com/downloads/overtone/live-coding-emacs/improcess-logo-2.png" alt="Fuzzy Improcess Logo" title="Improcess" align="right" />
 
 ## Live Coding Emacs setup for Overtone
-An opinionated set of defaults for getting started with Emacs for use as a live coding tool for Overtone. These have been extracted from Sam Aaron's personal dot-emacs which is even more opinionated and probably not entirely fit for general consumption. This version pulls out the most useful elements in a format that's simple to install and get you live coding quickly.
+An opinionated set of defaults for getting started with Emacs for use as a live coding tool for Overtone which also happens to make it a jolly good generic Clojure hacking config. This has been extracted from Sam Aaron's personal dot-emacs which is even more opinionated and probably not entirely fit for general consumption. This version pulls out the most useful elements in a format that's simple to install and get you live coding quickly.
 
 ### Prerequisites
 
-This dot-emacs config has only been tested with a terminal hosted Emacs `23.2.1`. Issues and pull-requests for this and later versions will be happily accepted.
+This dot-emacs config has only been tested with a terminal hosted Emacs ` 24.1.50.1` (pre-release). Issues and pull-requests for this and later versions will be happily accepted.
 
 ### Getting started
 
@@ -25,7 +25,8 @@ This config includes an exciting cornucopia of Emacs goodies set up and ready to
 * The amazing undo-tree (live-code with confidence!)
 * Textmate-like snippets
 * Fancy highlighting of sexps on eval
-* REPL syntax highlighting
+* Refheap mode for pasting snippets to refheap.com
+* Smex - for a much nicer fuzzy-matching M-x experience.
 
 ### Personalising the Config
 
