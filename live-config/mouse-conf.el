@@ -1,6 +1,9 @@
 ;; Mouse in terminal
 (require 'mouse)
-(xterm-mouse-mode t)
+
+(setq xterm-mouse-mode t
+      mouse-yank-at-point t)
+
 (global-set-key [mouse-4] '(lambda ()
                              (interactive)
                              (scroll-down 1)))

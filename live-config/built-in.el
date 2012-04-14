@@ -42,13 +42,11 @@
       transient-mark-mode t
       color-theme-is-global t
       shift-select-mode nil
-      mouse-yank-at-point t
       require-final-newline t
       truncate-partial-width-windows nil
       delete-by-moving-to-trash nil
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
-      xterm-mouse-mode t
       save-place-file (concat dotfiles-tmp-dir "places"))
 
 (setq locale-coding-system 'utf-8)
