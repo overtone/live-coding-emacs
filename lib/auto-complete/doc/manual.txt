@@ -18,15 +18,15 @@ Auto Complete Mode User Manual
 Introduction
 ------------
 
-Auto Complete Mode (aka `auto-complete.el`, `auto-complete-mode`) is an extension that automates and advances the completion-system of [GNU Emacs][]. This is superior to the old system:
+Auto Complete Mode (aka `auto-complete.el`, `auto-complete-mode`) is a extension that automates and advances completion-system of [GNU Emacs][]. This is superior than old system:
 
 * Visual interface
 * Reduce overhead of completion by using statistic method
 * Extensibility
 
-This user manual covers from how to install and how to use to how to extend. Please contact me if you have any questions.
+This user manual covers from how to install and how to use to how to extend. Please contact me if you have question.
 
-Auto Complete Mode is licensed under the terms of [GPLv3][]. And this document is licensed under the term of [GFDL][].
+Auto Complete Mode is licensed under the term of [GPLv3][]. And this document is licensed under the term of [GFDL][].
 
 Downloads
 ---------
@@ -44,7 +44,7 @@ Installation
 
 ### Installation Script ###
 
-It is easy to install by using an installation script called `etc/install.el` that is located in the package directory.
+It is easy to install by using a installation script called `etc/install.el` that is located in the package directory.
 
 Type `M-x load-file RET` in the running Emacs or newly launched Emacs. Note that if you want to upgrade `auto-complete-mode`, you have to install in **a newly launched Emacs with `-q` option**. Then input a file name to load which is a path string with adding `/etc/install.el` to the package directory. For example, if the package directory is `~/tmp/auto-complete-1.2`, the file name will be `~/tmp/auto-complete-1.2/etc/install.el`.
 
@@ -69,13 +69,13 @@ If you don't have GNU Make, run emacs like:
     Add the following code to your .emacs:
     
     (add-to-list 'load-path "~/.emacs.d")    ; This may not be appeared if you have already added.
-    (require 'auto-complete-config)
     (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+    (require 'auto-complete-config)
     (ac-config-default)
 
 ### Manual Installation ###
 
-It is also possible to install manually if you follow a directory configuration. First, byte-compile all `.el` files in the package directory. You may use `Makefile` in UNIX OS.
+It is also possible to install manually if you follow a directory configuration. First, do byte-compile all `.el` files in the package directory. You may use `Makefile` in UNIX OS.
 
     $ make byte-compile
 
@@ -101,7 +101,7 @@ If you haven't added the directory to `load-path`, you need to add the following
 
 ### Check ###
 
-Type some characters in \*scratch\* buffer in a restarted Emacs or newly launched Emacs. Installation has been successful if you see a completion menu. If you have error or no completion is started, it is failure maybe. Please contact me in such case with confirmation following:
+Type some characters in \*scratch\* buffer in a restarted Emacs or newly launched Emacs. It is successful if you see completion menu. If you have error or no completion is started, it is failure maybe. Please contact me in such case with confirmation following:
 
 * Using correct `load-path`?
 
@@ -222,7 +222,7 @@ It is difficult what key `auto-complete` command is bound to. It should be bound
 
     (ac-set-trigger-key "TAB")
 
-Trigger key will be enabled after inserting characters. Otherwise it is dealt as an usual command (TAB will be indent). Generally, trigger key is used with `ac-auto-start` being `nil`.
+Trigger key will be enabled after inserting characters. Otherwise it is dealt as an usual command (TAB will be indent). Generally, trigger key is used with `auto-auto-start` being `nil`.
 
     (setq ac-auto-start nil)
 
@@ -369,10 +369,6 @@ A source for completing files in a current directory. It may be useful with `esh
 
 A source for completing Emacs Lisp functions. It is available only after `(`.
 
-#### `ac-source-ghc-mod` ####
-
-A source for [ghc-mod](http://www.mew.org/~kazu/proj/ghc-mod/en/).
-
 #### `ac-source-gtags` ####
 
 A source for completing tags of [Global](http://www.tamacom.com/global.html).
@@ -384,10 +380,6 @@ A source for completing `imenu` nodes. See `info emacs imenu` for details.
 #### `ac-source-semantic` ####
 
 A source for [Semantic](http://cedet.sourceforge.net/semantic.shtml). It can be used for completing member name for C/C++.
-
-#### `ac-source-slime` ####
-
-A source for [SLIME](http://common-lisp.net/project/slime/).
 
 #### `ac-source-semantic-raw` ####
 
@@ -525,14 +517,14 @@ Default is `smart`.
 
 ### Stop completion automatically after inserting specific words ###
 
-Set `ac-stop-words` to words that stops completion automatically. In ruby, some people want to stop completion automatically after inserting "end":
+Set `ac-ignores` to words that stops completion automatically. In ruby, some people want to stop completion automatically after inserting "end":
 
     (add-hook 'ruby-mode-hook
               (lambda ()
-                (make-local-variable 'ac-stop-words)
-                (add-to-list 'ac-stop-words "end")))
+                (make-local-variable 'ac-ignores)
+                (add-to-list 'ac-ignores "end")))
 
-Note that `ac-stop-words` is not a buffer local variable, so you need to make it buffer local with `make-local-variable` if it is buffer specific setting.
+Note that `ac-ignores` is not a buffer local variable, so you need to make it buffer local with `make-local-variable` if it is buffer specific setting.
 
 ### Change colors ###
 
@@ -603,17 +595,6 @@ You may bind keys to these command like:
 
 If [pos-tip.el](http://www.emacswiki.org/emacs-en/PosTip) is installed, `auto-complete-mode` uses its native rendering engine for displaying quick help instead of legacy one.
 
-Third-party Extensions
-----------------------
-
-### SLIME ###
-
-See [ac-slime](https://github.com/purcell/ac-slime) page.
-
-### Scala ###
-
-See [ENSIME](https://github.com/aemoncannon/ensime) page.
-
 Configuration
 -------------
 
@@ -679,10 +660,6 @@ Specify an integer of lines of completion menu.
 
 Specify an integer of lines of quick help.
 
-### `ac-quick-help-prefer-pos-tip` ###
-
-Whether or not auto-complete prefers native tooltip with pos-tip than overlap popup for displaying quick help. If non-nil, you also need to install [pos-tip.el](http://www.emacswiki.org/emacs/PosTip) so that displaying tooltip can work well.
-
 ### `ac-candidate-limit` ###
 
 Limit a number of candidates. Specifying an integer, the value will be a limit of candidates. `nil` means no limit.
@@ -694,10 +671,6 @@ Specify major modes as a list of symbols that will be enabled automatically if `
 ### `ac-compatible-packages-regexp` ###
 
 Specify a regexp that identifies starting completion or not for that package.
-
-### `ac-non-trigger-commands` ###
-
-Specify commands as a list of symbols that does NOT starts completion automatically.
 
 ### `ac-trigger-commands` ###
 
@@ -715,13 +688,9 @@ Specify a [trigger key](#Trigger_Key).
 
 Specify how completion will be started. `t` means always starting completion automatically. `nil` means never started automatically. An integer means completion will not be started until the value is more than a length of the completion target string.
 
-### `ac-stop-words` ###
+### `ac-ignores` ###
 
 Specify a list of strings that stops completion.
-
-### `ac-use-dictionary-as-stop-words` ###
-
-Specify whether auto-complete uses dictionaries as stop words.
 
 ### `ac-ignore-case` ###
 
@@ -1004,10 +973,6 @@ Specify a list of features (which are `require`d) that the source is depending.
 
 Specify a function or an expression that describe the source is available or not.
 
-#### `document` ####
-
-Specify a function or an expression that returns documentation of the candidate.
-
 ### Variables ###
 
 Here is a list of often used variables.
@@ -1081,17 +1046,11 @@ We don't good answers now, but you may shot the troubles by changing font size w
 Known Bugs
 ----------
 
-### Auto completion will not be started in a buffer `flyspell-mode` enabled ### {#flyspell-mode-bug}
+### Auto completion will not be started in a buffer `flyspell-mode` enabled ###
 
 A way of delaying processes of `flyspell-mode` disables auto completion. You can avoid this problem by `M-x ac-flyspell-workaround`. You can write the following code into your `~/.emacs`.
 
     (ac-flyspell-workaround)
-
-### `linum-mode` tries to display the line numbers even for the comletion menu ### {#linum-mode-bug}
-
-linum-mode tries to add the line numbers even for the comletion menu. To stop that annoying behavior, do `M-x ac-linum-workaround` or add the following code into your `~/.emacs`.
-
-    (ac-linum-workaround)
 
 Reporting Bugs
 --------------
