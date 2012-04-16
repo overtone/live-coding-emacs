@@ -5,4 +5,4 @@
 (setq delete-old-versions t
       kept-old-versions 1
       kept-new-versions 3
-      version-control t)a
+      version-control t)
