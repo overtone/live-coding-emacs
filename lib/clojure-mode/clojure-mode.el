@@ -349,9 +349,18 @@ elements of a def* forms."
                 ;; Possibly type or metadata
                 "\\(?:#?^\\(?:{[^}]*}\\|\\sw+\\)[ \r\n\t]*\\)*"
                 "\\(\\sw+\\)?")
-       (1 font-lock-type-face)
+       (1 font-lock-keyword-face)
        (2 font-lock-function-name-face nil t))
-      (,(concat "\\(\\(?:[a-z\.-]+/\\)?def\[a-z\]*-?\\)"
+      ;; (fn name? args ...)
+      (,(concat "(\\(?:clojure.core/\\)?\\(fn\\)[ \t]+"
+                ;; Possibly type
+                "\\(?:#?^\\sw+[ \t]*\\)?"
+                ;; Possibly name
+                "\\(t\\sw+\\)?" )
+       (1 font-lock-keyword-face)
+       (2 font-lock-function-name-face nil t))
+
+      (,(concat "(\\(\\(?:[a-z\.-]+/\\)?def\[a-z\]*-?\\)"
                 ;; Function declarations.
                 "\\>"
                 ;; Any whitespace
@@ -495,14 +504,6 @@ elements of a def* forms."
         ) t)
          "\\>")
        1 font-lock-variable-name-face)
-      ;; (fn name? args ...)
-      (,(concat "(\\(?:clojure.core/\\)?\\(fn\\)[ \t]+"
-                ;; Possibly type
-                "\\(?:#?^\\sw+[ \t]*\\)?"
-                ;; Possibly name
-                "\\(\\sw+\\)?" )
-       (1 font-lock-keyword-face)
-       (2 font-lock-function-name-face nil t))
       ;;Other namespaces in clojure.jar
       (,(concat
          "(\\(?:\.*/\\)?"
@@ -546,11 +547,11 @@ elements of a def* forms."
       ;; Constant values (keywords), including as metadata e.g. ^:static
       ("\\<^?:\\(\\sw\\|#\\)+\\>" 0 font-lock-constant-face)
       ;; Meta type annotation #^Type or ^Type
-      ("#?^\\sw+" 0 font-lock-type-face)
+      ("#?^\\sw+" 0 font-lock-preprocessor-face)
       ("\\<io\\!\\>" 0 font-lock-warning-face)
 
       ;;Java interop highlighting
-      ("\\<\\.[a-z][a-zA-Z0-9]*\\>" 0 font-lock-preprocessor-face) ;; .foo .barBaz .qux01
+      ("\\<\\.-?[a-z][a-zA-Z0-9]*\\>" 0 font-lock-preprocessor-face) ;; .foo .barBaz .qux01 .-flibble .-flibbleWobble
       ("\\<[A-Z][a-zA-Z0-9]*/[a-zA-Z0-9/$_]+\\>" 0 font-lock-preprocessor-face) ;; Foo Bar$Baz Qux_
       ("\\<[a-zA-Z]+\\.[a-zA-Z0-9._]*[A-Z]+[a-zA-Z0-9/.$]*\\>" 0 font-lock-preprocessor-face) ;; Foo/Bar foo.bar.Baz foo.Bar/baz
       ("[a-z]*[A-Z]+[a-z][a-zA-Z0-9$]*\\>" 0 font-lock-preprocessor-face) ;; fooBar
@@ -804,6 +805,7 @@ use (put-clojure-indent 'some-symbol 'defun)."
   ;; clojure.test
   (testing 1)
   (deftest 'defun)
+  (use-fixtures 'defun)
 
   ;; contrib
   (handler-case 1)
@@ -1201,9 +1203,17 @@ The arguments are dir, hostname, and port.  The return value should be an `alist
 
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-(add-to-list 'interpreter-mode-alist '("jark" . clojure-mode))
-(add-to-list 'interpreter-mode-alist '("cake" . clojure-mode))
+(progn
+  (put 'clojure-test-ns-segment-position 'safe-local-variable 'integerp)
+  (put 'clojure-mode-load-command 'safe-local-variable 'stringp)
+  (put 'clojure-swank-command 'safe-local-variable 'stringp)
+
+  (add-hook 'slime-connected-hook 'clojure-enable-slime-on-existing-buffers)
+  (add-hook 'slime-indentation-update-hooks 'put-clojure-indent)
+
+  (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
+  (add-to-list 'interpreter-mode-alist '("jark" . clojure-mode))
+  (add-to-list 'interpreter-mode-alist '("cake" . clojure-mode)))
 
 (provide 'clojure-mode)
 ;;; clojure-mode.el ends here

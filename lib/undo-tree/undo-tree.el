@@ -4,7 +4,7 @@
 ;; Copyright (C) 2009-2012 Toby Cubitt
 
 ;; Author: Toby Cubitt <toby-undo-tree@dr-qubit.org>
-;; Version: 0.3.3
+;; Version: 0.3.4
 ;; Keywords: convenience, files, undo, redo, history, tree
 ;; URL: http://www.dr-qubit.org/emacs.php
 ;; Git Repository: http://www.dr-qubit.org/git/undo-tree.git
@@ -605,12 +605,22 @@
 
 ;;; Change Log:
 ;;
+;; Version 0.3.4
+;; * set `permanent-local' property on `buffer-undo-tree', to prevent history
+;;   being discarded when switching major-mode
+;; * added `undo-tree-enabled-undo-in-region' customization option to allow
+;;   undo-in-region to be disabled.
+;; * fixed bug in `undo-list-pop-changeset' which, through a subtle chain of
+;;   consequences, occasionally caused undo-tree-mode to lose large amounts of
+;;   undo history (thanks to Magnar Sveen for his sterling efforts in helping
+;;   track this down!)
+;;
 ;; Version 0.3.3;
 ;; * added `term-mode' to `undo-tree-incompatible-major-modes'
 ;;
 ;; Version 0.3.2
 ;; * added additional check in `undo-list-GCd-marker-elt-p' to guard against
-;;   undo elements being mis-identified as marker elements.
+;;   undo elements being mis-identified as marker elements
 ;; * fixed bug in `undo-list-transfer-to-tree'
 ;;
 ;; Version 0.3.1
@@ -729,6 +739,7 @@
 (defvar buffer-undo-tree nil
   "Tree of undo entries in current buffer.")
 (make-variable-buffer-local 'buffer-undo-tree)
+(put 'buffer-undo-tree 'permanent-local t)
 
 
 (defgroup undo-tree nil
@@ -740,6 +751,16 @@
 when `undo-tree-mode' is enabled."
   :group 'undo-tree
   :type 'string)
+
+(defcustom undo-tree-enable-undo-in-region t
+  "When non-nil, enable undo-in-region.
+
+When undo-in-region is enabled, undoing or redoing when the
+region is active (in `transient-mark-mode') or with a prefix
+argument (not in `transient-mark-mode') only undoes changes
+within the current region."
+  :group 'undo-tree
+  :type 'boolean)
 
 (defcustom undo-tree-incompatible-major-modes '(term-mode)
   "List of major-modes in which `undo-tree-mode' should not be enabled.
@@ -1357,17 +1378,17 @@ Comparison is done with `eq'."
   (while (or (null (car buffer-undo-list))
 	     (and discard-pos (integerp (car buffer-undo-list))))
     (setq buffer-undo-list (cdr buffer-undo-list)))
-  ;; pop elements up to next undo boundary
-  (unless (eq (car buffer-undo-list) 'undo-tree-canary)
+  ;; pop elements up to next undo boundary, discarding position entries if
+  ;; DISCARD-POS is non-nil
+  (if (eq (car buffer-undo-list) 'undo-tree-canary)
+      (push nil buffer-undo-list)
     (let* ((changeset (list (pop buffer-undo-list)))
            (p changeset))
       (while (progn
 	       (undo-tree-move-GC-elts-to-pool (car p))
+	       (while (and discard-pos (integerp (car buffer-undo-list)))
+		 (setq buffer-undo-list (cdr buffer-undo-list)))
 	       (car buffer-undo-list))
-	;; discard position entries at head of undo list
-	(when discard-pos
-	  (while (and discard-pos (integerp (car buffer-undo-list)))
-	    (setq buffer-undo-list (cdr buffer-undo-list))))
         (setcdr p (list (pop buffer-undo-list)))
 	(setq p (cdr p)))
       changeset)))
@@ -2349,7 +2370,9 @@ undoing."
   (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
 
   (let ((undo-in-progress t)
-	(undo-in-region (or (region-active-p) (and arg (not (numberp arg)))))
+	(undo-in-region (and undo-tree-enable-undo-in-region
+			     (or (region-active-p)
+				 (and arg (not (numberp arg))))))
 	pos current)
     ;; transfer entries accumulated in `buffer-undo-list' to
     ;; `buffer-undo-tree'
@@ -2446,7 +2469,9 @@ redoing."
   (when (eq buffer-undo-list t) (error "No undo information in this buffer"))
 
   (let ((undo-in-progress t)
-	(redo-in-region (or (region-active-p) (and arg (not (numberp arg)))))
+	(redo-in-region (and undo-tree-enable-undo-in-region
+			     (or (region-active-p)
+				 (and arg (not (numberp arg))))))
 	pos current)
     ;; transfer entries accumulated in `buffer-undo-list' to
     ;; `buffer-undo-tree'
