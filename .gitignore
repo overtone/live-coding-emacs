@@ -22,3 +22,4 @@ session*
 tramp
 \#*
 tmp/*
+elpa/
