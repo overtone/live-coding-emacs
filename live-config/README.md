@@ -27,7 +27,6 @@ And the following lib dirs:
 * `slime`
 * `smex`
 * `undo-tree`
-* `volatile-highlights`
 
 These may all be found in the lib dir here: https://github.com/overtone/live-coding-emacs
 

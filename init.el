@@ -16,6 +16,7 @@
 ;; Auto-install base packages!
 (defvar base-packages
   '(
+    volatile-highlights
     yasnippet
     )
   "A list of packages to ensure are installed at launch.")
