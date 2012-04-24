@@ -26,7 +26,6 @@ And the following lib dirs:
 * `color-theme`
 * `slime`
 * `smex`
-* `undo-tree`
 
 These may all be found in the lib dir here: https://github.com/overtone/live-coding-emacs
 

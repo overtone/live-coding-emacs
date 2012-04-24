@@ -16,6 +16,7 @@
 ;; Auto-install base packages!
 (defvar base-packages
   '(
+    undo-tree
     volatile-highlights
     yasnippet
     )
