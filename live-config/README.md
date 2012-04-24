@@ -14,7 +14,6 @@ Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) 
 * `key-chord.el`
 * `mwe-log-commands.el`
 * `paredit.el`
-* `rainbow-delimiters.el`
 * `smooth-scrolling.el`
 
 And the following lib dirs:

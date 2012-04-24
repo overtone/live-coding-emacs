@@ -22,7 +22,6 @@
 (add-to-list 'load-path dotfiles-lib-dir)
 (require 'dircolors)
 (require 'smooth-scrolling)
-(require 'rainbow-delimiters)
 (require 'mwe-log-commands)
 (require 'ace-jump-mode)
 
