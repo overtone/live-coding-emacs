@@ -16,6 +16,7 @@
 ;; Auto-install base packages!
 (defvar base-packages
   '(
+    smex
     undo-tree
     volatile-highlights
     yasnippet

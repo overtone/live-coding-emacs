@@ -25,7 +25,6 @@ And the following lib dirs:
 * `clojure-mode`
 * `color-theme`
 * `slime`
-* `smex`
 
 These may all be found in the lib dir here: https://github.com/overtone/live-coding-emacs
 
