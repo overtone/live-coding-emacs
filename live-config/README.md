@@ -12,7 +12,6 @@ Assumes the presence of `dotfiles-lib-dir` (usually bound to `~/.emacs.d/lib/`) 
 * `eval-sexp-fu.el`
 * `highlight.el`
 * `key-chord.el`
-* `mwe-log-commands.el`
 * `paredit.el`
 * `smooth-scrolling.el`
 

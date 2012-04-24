@@ -16,6 +16,7 @@
 ;; Auto-install base packages!
 (defvar base-packages
   '(
+    mwe-log-commands
     rainbow-delimiters
     smex
     undo-tree
